@@ -1,2 +1,8 @@
 # DATA_SCIENCE
- repositório contem sistemas de datascience desenvolvidos usando  lingueagem python
+The repository of knowledge of the Data Analisys with Python
+
+-Linear Regression
+-Pipelines
+-Plots
+-Model Evaluate
+-Machine Learning
