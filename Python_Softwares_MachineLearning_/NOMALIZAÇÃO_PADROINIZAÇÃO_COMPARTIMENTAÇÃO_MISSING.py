@@ -2,94 +2,152 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-#IMPORTA AS BLIOTECAS NECESSARIAS PARA EXECUÇÃO DO CÓDIGO
+import matplotlib.pyplot as plt
+#IMPORT THE NEEDED LIBRARY FOR THE RUNNING CODE
 #numpy, pandas, matploitlib
 
 
-#----------IMPORTAÇÃO DA ESTRUTURA DE DADOS E CONFIGURAÇÃO DO CABEÇALHO----------------------------------------------------------------------------------------------------------------
+#----------IMPORT OF DATA STRUCTURE AND HEAD LAYOUT----------------------------------------------------------------------------------------------------------------
 
 
 
 
-#CRIA UMA VARÍAVEL QUE RECEBE A ESTRUTURA DE DADOS COM OS VALORES REFERENTES AOS CARROS
+#CREATE A THE VARIABLE THAT RECEIVE 
+#THE DATA STRUCTURE WITH THE VALUES RELATED TO CARS
 filename = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101EN-SkillsNetwork/labs/Data%20files/auto.csv"
-#CRIA UMA VARÍAVEL QUE RECEBE A ESTRUTURA DE DADOS COM OS VALORES REFERENTES AOS CARROS
+#CREATE A THE VARIABLE THAT RECEIVE 
+#THE DATA STRUCTURE WITH THE VALUES RELATED TO CARS
 
 
 
 
-#CRIA UM ARRAY COM VALORES REFERENTES AO CABEÇALHO/RÓTULO DO DATAFRAME
-headers = ["symboling","normalized-losses","make","fuel-type","aspiration", "num-of-doors","body-style",
-         "drive-wheels","engine-location","wheel-base", "length","width","height","curb-weight","engine-type",
-         "num-of-cylinders", "engine-size","fuel-system","bore","stroke","compression-ratio","horsepower",
-         "peak-rpm","city-mpg","highway-mpg","price"]
-#CRIA UM ARRAY COM VALORES REFERENTES AO CABEÇALHO/RÓTULO DO DATAFRAME
+#CREATE THE ARRAY WITH VALUES RELATED TO HEAD/LABEL FOR THE DATAFRAME
+headers = ["symboling",
+           "normalized-losses",
+           "make","fuel-type",
+           "aspiration", 
+           "num-of-doors",
+           "body-style",
+           "drive-wheels",
+           "engine-location",
+           "wheel-base", 
+           "length",
+           "width",
+           "height",
+           "curb-weight",
+           "engine-type",
+           "num-of-cylinders", 
+           "engine-size",
+           "fuel-system",
+           "bore",
+           "stroke",
+           "compression-ratio",
+           "horsepower",
+           "peak-rpm",
+           "city-mpg",
+           "highway-mpg",
+           "price"]
+#CREATE THE ARRAY WITH VALUES RELATED TO HEAD/LABEL FOR THE DATAFRAME
 
 
 
-#COLOCA O CABEÇALHO 
+#INSERT THE HEAD IN THE DATAFRAME 
 df = pd.read_csv(filename, names = headers)
 
 
+#READ THE FIRSTs FIVE VALUES
+print("FIRST VIFE VELUES OF THE DATAFRAME: ")
+print(df.head())
+print("-----------------------------")
 
-#LE OS PRIMEIROS 5 VALORES
-df.head()
 
 
 
 
-#SUBSTIRUI OS VALORES DEMARCADOS COMO "NaN"
+#REPLACES THE VALUES EQUAL "NaN"
 df.replace("?", np.nan, inplace = True)
-#SUBSTIRUI OS VALORES DEMARCADOS COMO "NaN"
+#REPLACES THE VALUES EQUAL "NaN"
 
 
+
+
+#READ THE FIRSTs 
 df.head(5)
-
-#----------IMPORTAÇÃO DA ESTRUTURA DE DADOS E CONFIGURAÇÃO DO CABEÇALHO--------------------------------------------------------------------------------------------------------------
-
-
-
-#-----------------------DETECÇÃO DE VALORES AUSENTES - MISSING-------------------------------------------------------------------
+print("#REPLACES THE VALUES EQUAL NaN: ")
+print(df.head(5))
+print("-----------------------------")
 
 
 
-#CRIA ESTRUUTRA DE DADOS  COM OS VALORES REFERENTES AOS DADOS AUSENTES
+#----------IMPORT THE DATA STRUCTURES AND HEAD LAYOUT---------------------------
+#SUBSTIRUIR O VALOR AUSENTE DE 'num-of-doors' PELO MAIS FREQUENTE
+df["num-of-doors"].replace(np.nan, "four", inplace=True)
+#-----------------------------------------------------------------
+
+
+#RETIRAR AS LINHAS SEM VALORES EM PRICE
+df.dropna(subset=["price"], axis=0, inplace=True)
+
+
+
+# reset index, because we droped two rows
+df.reset_index(drop=True, inplace=True)
+
+
+#-----------------------DETECT OF MISSING VALUE - MISSING-------------------------------------------------------------------
+
+
+
+
+
+#-----------------------DETECT OF MISSING VALUE - MISSING-------------------------------------------------------------------
+
+
+#CREATE DATA STRUCTURES WITH DATA MISSING
 missing_data = df.isnull()
-#CRIA ESTRUUTRA DE DADOS  COM OS VALORES REFERENTES AOS DADOS AUSENTES
+#CREATE DATA STRUCTURES WITH DATA MISSING
 
 
 
-#EXIBE O VALOR DA ESTRUTURA DE DADOS
-missing_data.head(5)
+#PRINT THE NISSING VALUE OF DATA STRUCTURE
+print("PRINT THE NISSINGVALUE OF DATA STRUCTURE")
+print(missing_data.head(5))
+print("-----------------------------")
 
 
-
-#LOOP - REALIZA A CONTAGEM DE QUANTOS VALORES SUSENTES EXISTEM EM CADA COLUNA - EXIBE O NOME DE CADA UMA -
+#LOOP - COUNT MISSING VALUES IN THE COLUMNS - PRINT THE NAME OF COLUMNS TOO 
 for column in missing_data.columns.values.tolist():
     print(column)
     print (missing_data[column].value_counts())
-    print("")    
-#LOOP - REALIZA A CONTAGEM DE QUANTOS VALORES SUSENTES EXISTEM EM CADA COLUNA - EXIBE O NOME DE CADA UMA -
+    print("")        
+#LOOP - COUNT MISSING VALUES IN THE COLUMNS - PRINT THE NAME OF COLUMNS TOO
+
+#-----LOOP GUIDE------
+#!TRUE - MISSING VALUE
+#!FALSE - PRESENT VALUE 
+#!THE NUMBER AFTER THE BOOLEAN IS THE COUNT OF MISSING VALUES
+#-----LOOP GUIDE------
+    
+
+    
+    
+    
 
 
-#!TRUE - VALOR AUSENTE
-#!FALSE - VALOR PRESENTE
-#!O NÚMERO SEGUIDO DO VALOR BOOLEANO REPRESENTA A QUANTIDADE
 
-
-
-
-
-#CALCULAR MÉDIA DE UMA COLUNA 
+#CALCULATATION MEAN OF COLUNM 
 #NORMALIZED-LOSSES
 avg_norm_loss = df["normalized-losses"].astype("float").mean(axis=0)
 print("Average of normalized-losses:", avg_norm_loss)
 
 
-#SUBSTIRUIR O VALOR DA MÉDIA DA COLUNA "normalized-losses" DENTRO DA ESTRUTURA DE DADOS
+
+#REPLACE THE MISSING VALUES OF THE MEAN OF COLUMN "normalized-losses" WHITIN DATA STRUCTURE
 df["normalized-losses"].replace(np.nan, avg_norm_loss, inplace=True)
 
-#CALCULATE MEDIA COLUNA "stroke" E SUBSTIRUIR
+
+
+#CALCULATATION MEAN OF COLUNM  "stroke" AND REPLACE YOUR VALUE
 avg_stroke = df["stroke"].astype("float").mean(axis=0)
 df["stroke"].replace(np.nan, avg_stroke, inplace=True)
 #----------------------------------------------------------
@@ -97,8 +155,8 @@ df["stroke"].replace(np.nan, avg_stroke, inplace=True)
 
 
 #MOSTRAR O TIPO DE DADOS MAIS COMUM "num-of-doors" E CONTAR QUANTOS VALORES HA DE CADA
-df['num-of-doors'].value_counts()
-
+print("MOSTRAR O TIPO DE DADOS MAIS COMUM _num-of-doors_ E CONTAR QUANTOS VALORES HÁ DE CADA")
+print(df['num-of-doors'].value_counts())
 
 
 #MOSTRAR O VALOR MAIS COMUM EM "num-of-doors"
@@ -117,7 +175,7 @@ df.dropna(subset=["price"], axis=0, inplace=True)
 df.reset_index(drop=True, inplace=True)
 
 
-#-----------------------DETECÇAÕ DE VALORES AUSENTES - MISSING--------------------------------------------------------------------
+#-----------------------DETECT OF MISSING VALUE - MISSING-------------------------------------------------------------------
 
 
 
@@ -167,7 +225,7 @@ df.head()
 
 #-----------------------#NORMALIZAÇÃO------------------------------------------------------------------------------------------
 
-#RELAÇÃO MATEMATICA PARA TRANFORMAÇÃO DE VLOR PARA INTERVALO QUE VARIE DE 0 A 1
+#RELAÇÃO MATEMATICA PARA TRANFORMAÇÃO DE VALOR PARA INTERVALO QUE VARIE DE 0 A 1
 #(valor original)/(valor máximo)
 df['length'] = df['length']/df['length'].max()
 df['width'] = df['width']/df['width'].max()
@@ -210,7 +268,7 @@ df["horsepower"]=df["horsepower"].astype(float, copy=True)
 
 
 
-
+#FUNCTION FOR CREATE PLOTS 
 def create_plot(dataf, x1, y1 , plot_type, savename):
      
      #limpa e fecha o gráfico atual (ultimo gráfico plotado)
@@ -221,10 +279,10 @@ def create_plot(dataf, x1, y1 , plot_type, savename):
      width = 12
      height = 10
      
-     '''
-     abaixo, verifica o parâmetro passado na invocação do método referente ao tipo de 
-     gráfico a ser plotado
-     '''
+     
+     # abaixo, verifica o parâmetro passado na invocação do método referente ao tipo de 
+     # gráfico a ser plotado
+     
      if(plot_type == 'regression'): #plota o gráfico de regressão linear
         plt.figure(figsize=(width, height))
         sns.regplot(x=dataf[[x1]], y=dataf[y1], data=dataf)
@@ -233,27 +291,27 @@ def create_plot(dataf, x1, y1 , plot_type, savename):
      elif (plot_type == 'resid'):   #plota o gráfico de resíduo linear
          plt.figure(figsize=(width, height))
          sns.residplot(dataf[[x1]], df[y1])
-
-     '''
-     abaixo, verifica se na invocação do método foi pedidio para salvar a imagem
-     respectiva var savename deverá conter caminho/nome_arquivo.extensao ou caminho\nome_arquivo.extensao
-     se for S.O windows 
-     '''
+         
+     
+     # abaixo, verifica se na invocação do método foi pedidio para salvar a imagem
+     # respectiva var savename deverá conter caminho/nome_arquivo.extensao ou caminho\nome_arquivo.extensao
+     # se for S.O windows 
+     
      if len(savename) > 0:
         plt.savefig(savename)    
         
-        
+
      plt.show() #mostra o gráfico
 
 
 
-'''chama a função passando os seguintes parâmetros:
-    dataframe,
-    termo independente,
-    termo dependente,
-    tipo de gráfico,
-    nome de salvamento do gráfico + extensão
-'''
+# chama a função passando os seguintes parâmetros:
+#     dataframe,
+#     termo independente,
+#     termo dependente,
+#     tipo de gráfico,
+#     nome de salvamento do gráfico + extensão
+# 
 
 create_plot(df, "highway-mpg", "price", "resid", "regplot1.png")
 
@@ -269,34 +327,36 @@ create_plot(df, "highway-mpg", "price", "resid", "regplot1.png")
 
 
 
-#-------IMPORTAÇÃO------------
-%matplotlib inline
-import matplotlib as plt
+
 #import matplotlib.pyplot as plt
 
-from matplotlib import pyplot
-
 #CRIAÇÃO DO GRAFICO
-plt.pyplot.hist(df["horsepower"]) 
+def histogram_plot(dataframe_df, x_label, y_label, title):
+    
+    plt.clf()
+    # #limpar
+    
+    #DEFINIÇÃO DOS ATRIBUTOS
+    plt.hist(dataframe_df)
+    plt.xlabel(x_label) #<------TITULO X DO GRAFICO
+    plt.ylabel(y_label) #<-----TITULO Y DO GRAFICO
+    plt.title(title) # <------TITULO DO GRAFICO
+    plt.show()
 
 
-#DEFINIÇÃO DOS ATRIBUTOS
-plt.pyplot.xlabel("horsepower") #<------TITULO X DO GRAFICO
-plt.pyplot.ylabel("count") #<-----TITULO Y DO GRAFICO
-plt.pyplot.title("horsepower bins") # <------TITULO DO GRAFICO
-plt.pyplot.show()
+histogram_plot(df["horsepower"], "horsepower", "count", "horsepower bins")
 
+#MANEGE PLOTS GUIDE---------------------
+# plt.clf()
+# #limpar
 
-'''
-plt.clf()
-#limpar
+# plt.savefig("figura1.png")
+# #Salvar a figura
 
-plt.savefig("figura1.png")
-#Salvar a figura
+# plt.show()
+# #Mostrar grafico
 
-plt.show()
-#Mostrar grafico
-'''
+#MANEGE PLOTS GUIDE---------------------
 
 #-----CONSTRUÇÃO DE HISTOGRAMA COM OS DADOS DE "horsepower"
 
@@ -362,23 +422,20 @@ df["horsepower-binned"].value_counts()
 
 
 
-#CONTRUIR HISTOGRAMA ATRAVÉS DA IMPORTAÇÃO COM A ESTRUTURA "inline"
-%matplotlib inline
-import matplotlib as plt
-from matplotlib import pyplot
-#CONTRUIR HISTOGRAMA ATRAVÉS DA IMPORTAÇÃO COM A ESTRUTURA "inline"
-
 
 
 #CONSTROI GRAFICO
-pyplot.bar(group_names, df["horsepower-binned"].value_counts())
+plt.clf()
+# #limpar
 
+plt.bar(group_names, df["horsepower-binned"].value_counts())
 
 #CONTRUÇÃO DO HISTOGRAMA/GRAFICO DO COMPARTIMENTO
-plt.pyplot.xlabel("horsepower") #TITULO DO X
-plt.pyplot.ylabel("count")#TITULO DO Y
-plt.pyplot.title("horsepower bins")#TITULO
-plt.pyplot.show()
+plt.xlabel("horsepower") #TITULO DO X
+#READ THE FIRSTs 
+plt.ylabel("count")#TITULO DO Y
+plt.title("horsepower bins")#TITULO
+plt.show()
 
 #CONTRUÇÃO DO HISTOGRAMA/GRAFICO DO COMPARTIMENTO
 
@@ -390,27 +447,28 @@ plt.pyplot.show()
 
 
 #----------HISTOGRAMA - VALORES DE "horsepower" DIVIDIDOS EM 3 CLASSIFICAÇÕES
-%matplotlib inline
-import matplotlib as plt
-from matplotlib import pyplot
 
 
 #ATRIBUTOS DE HISTOGRAMA - VALORES DE "horsepower" E QUANTIDADE DE "bins" = 3
-plt.pyplot.hist(df["horsepower"], bins = 3)
+
+plt.clf()
+# #limpar
+
+plt.hist(df["horsepower"], bins = 3)
 
 
 #ENVIAR RÓTULOS PARA O GRÁFICO
-plt.pyplot.xlabel("horsepower")
-plt.pyplot.ylabel("count")
-plt.pyplot.title("horsepower bins")
-plt.pyplot.show()
-
+plt.xlabel("horsepower")
+plt.ylabel("count")
+plt.title("horsepower bins")
+plt.show()
 
 #-------------------------BINNING------------------------------------------------------------------------------------------------------
 
 
 
 
+#READ THE FIRSTs 
 #-------------------------DUMMY VARIABLE-----------------------------------------------------
 #SÃO VARIAVEIS USADAS PARA DIFERENCIAR CATEGORIAS
 #TRANSFORMA UMA VARIAVEL (NESSE CASO UMA COLUNA DO CSV) QUE CONTEM PALAVRAS QUE 
@@ -473,21 +531,20 @@ df.drop("aspiration", axis = 1, inplace=True)
 df.to_csv('clean_df.csv')
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     

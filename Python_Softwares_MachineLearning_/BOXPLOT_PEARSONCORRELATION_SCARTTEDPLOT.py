@@ -19,7 +19,7 @@ df = pd.read_csv(path)
 df.head()
 
 
-#IMPORTAÇÕES----------------------------------------------------------
+#IMPORT----------------------------------------------------------
 
 
 
@@ -30,41 +30,39 @@ df.head()
 
 
 
-#-----------------GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
+#-----------------REG PLOT --- CALCULATION OF CORRELATION--------------------------------------------------------
 
 
 
-#IMPORTAR A BIBLIOTECA A SEGUIR PARA CONSTRUIR O GRAFICO:
+#Import SEABORN LIBRARY for contruction of the PLOTS with the sintax below
 #import seaborn as sns
 
 
 
-
-%matplotlib inline 
-#VEMOS QUE NO GRAFICO OS PONTOS ESTÃO ALINHADOS COM A LINHA
-#CORRELAÇÃO POSITIVA DETECTADA - PONTOS AUMENTAM ASSIM COMO A LINHA
+# SEE THAT IN THE PLOT THE DOTs ARE FIT WITH THE LINE
+#POSITIVE CORRELATION DETECTED WITH THE POINTS - THE POINTS INCREASE LIKE THE LINE
 sns.regplot(x="engine-size", y="price", data=df)
 plt.ylim(0,)
 #plt.ylim(0,) <---- CONSTROI O GRAFICO COM O EIXO Y COMEÇADO EM ZERO
 
 
 
-#DESCRIÇAÕ DO GRAFICO 
-#LINHA -  MÉDIA DOS PONTOS
-#PONTOS -  VALORES DA VARIAVEL COMPARADA COM "price"
-#VALORES EIXO Y - VALORES DO PREÇO
-#EIXO X - VALORES DA VARIAVEL COMPARADA
+#PLOT GUIDE 
+#MEAN -  MEAN OF DOTs
+#DOTs -  VARIABLE VALUES COMPARED WITH "price"
+#Y AXIS VALUES - VALUES OF VARIABLE "prices"
+#X AXIS - VALUES OF THE COMPARED VARIABLE  
 
 
 
 
-#CALCULO DE TAXA DE CORRELAÇAÕ ENTRE VARIAVEIS
+#CALCULATION OF THE CORRELATION RATE BETWEEN THE VARIABLES 
 CORRELAO_1 = df[["engine-size", "price"]].corr()
-#0,87 OU 87% CORRELACIONADAS
+#0,87 OR 87% CORRELATED 
 
 
 
-#GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
+#-----------------REG PLOT --- CALCULATION OF CORRELATION--------------------------------------------------------
 
 
 
@@ -72,18 +70,19 @@ CORRELAO_1 = df[["engine-size", "price"]].corr()
 
 
 
-#GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
+
+#-----------------REG PLOT --- CALCULATION OF CORRELATION--------------------------------------------------------
 
 
 #CORRELAÇAÕ ENTRE VARIAVEIS
-%matplotlib inline 
 sns.regplot(x="highway-mpg", y="price", data=df)
 
 print(df[["highway-mpg", "price"]].corr())
 #CALCULO DE CORRELAÇAÕ ENTRE VARIAVEIS
 
 
-#GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
+
+#-----------------REG PLOT --- CALCULATION OF CORRELATION--------------------------------------------------------
 
 
 
@@ -91,7 +90,7 @@ print(df[["highway-mpg", "price"]].corr())
 
 
 
-#GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
+#-----------------REG PLOT --- CALCULATION OF CORRELATION--------------------------------------------------------
 
 
 %matplotlib inline 
@@ -101,13 +100,11 @@ sns.regplot(x="peak-rpm", y="price", data=df)
 df[['peak-rpm','price']].corr()
 
 
-#GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
+
+#-----------------REG PLOT --- CALCULATION OF CORRELATION--------------------------------------------------------
 
 
 
-
-
-#-----------------GRAFICO DE DISPERÇÃO E CALCULO DE CORRELAÇÃO--------------------------------------------------------
 
 
 
