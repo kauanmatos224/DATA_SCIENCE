@@ -1,5 +1,5 @@
 # DATA_SCIENCE
-The repository of knowledge of the Data Analisys with Python
+The repository of the Data Analisys Knowledge with Python
 
 -Linear Regression
 -Pipelines
