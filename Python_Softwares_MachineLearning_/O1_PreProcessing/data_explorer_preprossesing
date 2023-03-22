@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 22 10:27:42 2023
+
+@author: kauan
+"""
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
+
+
+
+#----------IMPORT OF DATA STRUCTURE ----------------------------------------------------------------------------------------------------------------
+
+
+
+
+#CREATE A THE VARIABLE THAT RECEIVE 
+#THE DATA STRUCTURE WITH THE VALUES RELATED TO CARS
+filename = "data/clean_df.csv"
+#CREATE A THE VARIABLE THAT RECEIVE 
+#THE DATA STRUCTURE WITH THE VALUES RELATED TO CARS
+
+
+
+
+
+#INSERT THE HEAD IN THE DATAFRAME 
+df = pd.read_csv(filename)
+
+
+#----------IMPORT OF DATA STRUCTURE ----------------------------------------------------------------------------------------------------------------
+
+
+
+#FUNCTION FOR CREATE PLOTS 
+def resid_plot(dataf, x1, y1, savename):
+     
+     #limpa e fecha o gráfico atual (ultimo gráfico plotado)
+     #clears and closes the current graph (last graph plotted)
+     plt.clf()
+     plt.clf()
+     plt.close()
+     
+     #define as dimensões da figura / gráfico
+     #DEFINE PLOT FIGURE DIMENSIONS 
+     width = 12
+     height = 10
+     
+     
+     # below, check the parameter passed in the method invocation 
+     # referring to the type of graph to be plotted
+     
+     plt.figure(figsize=(width, height))
+     sns.regplot(x=dataf[[x1]], y=dataf[y1], data=dataf)
+     plt.ylim(0,)
+        
+
+         
+     
+     # abaixo, verifica se na invocação do método foi pedidio para salvar a imagem
+     # respectiva var savename deverá conter caminho/nome_arquivo.extensao ou 
+     # caminho\nome_arquivo.extensao se for S.O windows 
+         #---------------------------
+     # below, check if the method invocation asked to save the image
+     # respective var savename must contain path/file_name.extension or
+     # path\filename.extension if OS windows
+     
+     if len(savename) > 0:
+        plt.savefig(savename)    
+        
+
+     plt.show() # show the graph
+     plt.savefig("data/plot.png")
+
+
+
+
+
+#FUNCTION FOR CREATE PLOTS 
+def regression_plot(dataf, x1, y1, savename):
+     
+     #limpa e fecha o gráfico atual (ultimo gráfico plotado)
+     #clears and closes the current graph (last graph plotted)
+     plt.clf()
+     plt.clf()
+     plt.close()
+     
+     #define as dimensões da figura / gráfico
+     #DEFINE PLOT FIGURE DIMENSIONS 
+     width = 12
+     height = 10
+     
+     
+     # below, check the parameter passed in the method invocation 
+     # referring to the type of graph to be plotted
+     plt.figure(figsize=(width, height))
+     sns.regplot(x=dataf[[x1]], y=dataf[y1], data=dataf)
+     plt.ylim(0,)
+        
+
+     
+     # abaixo, verifica se na invocação do método foi pedidio para salvar a imagem
+     # respectiva var savename deverá conter caminho/nome_arquivo.extensao ou 
+     # caminho\nome_arquivo.extensao se for S.O windows 
+         #---------------------------
+     # below, check if the method invocation asked to save the image
+     # respective var savename must contain path/file_name.extension or
+     # path\filename.extension if OS windows
+     
+     #if len(savename) > 0:
+     #   plt.savefig(savename)    
+        
+
+     plt.show() # show the graph
+     plt.savefig("data/plot.png")
+
+
+
+#-----CONSTRUCTION OF HISTOGRAM WITH DATA FROM "horsepower"------------------------------------------------------------
+
+
+#import matplotlib.pyplot as plt
+
+# CREATE THE GRAPHIC
+def histogram_plot(dataframe_df, x_label, y_label, title, bins=None):
+    
+    plt.clf()
+    # #limpar
+    
+    #DEFINIÇÃO DOS ATRIBUTOS
+    plt.hist(dataframe_df, bins=bins)
+    plt.xlabel(x_label) #<------TITLE X 
+    plt.ylabel(y_label) #<-----TITLE Y 
+    plt.title(title) # <------TITLE OF THE PLOT
+    plt.show()
+    plt.savefig("data/histogram_binning_data.png")
+
+
+histogram_plot(df["horsepower"], "horsepower", "count", "horsepower bins")
+
+#MANEGE PLOTS GUIDE---------------------
+# plt.clf()
+# #limpar
+
+# plt.savefig("figura1.png")
+# #Salvar a figura
+
+# plt.show()
+# #Mostrar grafico
+
+#MANAGE PLOTS GUIDE---------------------
+
+
+#-----CONSTRUCTION OF HISTOGRAM WITH DATA FROM "horsepower"
+
+
+
+
+
+
+#----------CONSTRUCT HISTOGRAM OF "horsepower-binned" COMPARTMENTS
+
+
+#CONTRUÇAÕ DOS COMPATIMENTOS "bins" DO DATAFRAME COM LINSPACE
+bins = np.linspace(min(df["horsepower"]), max(df["horsepower"]), 4)
+print(bins)
+#CONTRUÇAÕ DOS COMPATIMENTOS "bins" DO DATAFRAME COM LINSPACE
+
+
+
+
+# DEFINITION OF DATA COMPARTMENT NAMES
+group_names = ['Low', 'Medium', 'High']
+# DEFINITION OF DATA COMPARTMENT NAMES
+
+
+
+#SEGMENTATION OF THE COLUMN "horse_power" INTO 3 COMPARTMENTS
+df['horsepower-binned'] = pd.cut(df['horsepower'], bins, labels=group_names, include_lowest=True)
+df[['horsepower','horsepower-binned']].head(20)
+#SEGMENTATION OF THE COLUMN "horse_power" INTO 3 COMPARTMENTS
+
+
+
+
+
+#CONSTROI GRAFICO
+
+# #limpar
+def bar_plot(group_names, df, title, x_title, y_title):
+    
+    plt.clf()
+    plt.bar(group_names, df.value_counts())
+    #CONTRUÇÃO DO HISTOGRAMA/GRAFICO DO COMPARTIMENTO
+    plt.xlabel(x_title) #TITULO DO X
+    plt.ylabel(y_title)
+    
+    plt.show()
+    plt.savefig("data/binnings_bar.png")
+
+
+bar_plot(group_names, 
+         df["horsepower-binned"].value_counts(), 
+         "horsepower bins", 
+         "horsepower", 
+         "count")
+
+
+
+#----------HISTOGRAM - "horsepower" VALUES DIVIDED INTO 3 CLASSIFICATIONS
+
+#HISTOGRAM ATTRIBUTES - VALUES OF "horsepower" AND QUANTITY OF "bins" = 3
+plt.clf()
+# #clean
+
+
+histogram_plot(df["horsepower"], 
+               "horsepower", 
+               "count", 
+               "horsepower bins", 
+               bins = 3)
+
+
+
+#----------HISTOGRAM - "horsepower" VALUES DIVIDED INTO 3 CLASSIFICATIONS
+
+#----------CONSTRUCT HISTOGRAM OF "horsepower-binned" COMPARTMENTS
+
+
+
+
+
+
+
+
+
