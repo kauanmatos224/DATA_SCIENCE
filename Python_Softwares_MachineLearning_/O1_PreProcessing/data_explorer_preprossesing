@@ -12,7 +12,6 @@ import numpy as np
 
 
 
-
 #----------IMPORT OF DATA STRUCTURE ----------------------------------------------------------------------------------------------------------------
 
 
@@ -188,7 +187,7 @@ group_names = ['Low', 'Medium', 'High']
 def bar_plot(group_names, df, title, x_title, y_title):
     
     plt.clf()
-    plt.bar(group_names, df.value_counts())
+    plt.bar(group_names, df)
     #CONTRUÇÃO DO HISTOGRAMA/GRAFICO DO COMPARTIMENTO
     plt.xlabel(x_title) #TITULO DO X
     plt.ylabel(y_title)
@@ -198,7 +197,7 @@ def bar_plot(group_names, df, title, x_title, y_title):
 
 
 bar_plot(group_names, 
-         df["horsepower-binned"], 
+         df["horsepower-binned"].value_counts(), 
          "horsepower bins", 
          "horsepower", 
          "count")
