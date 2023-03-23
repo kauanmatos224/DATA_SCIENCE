@@ -140,7 +140,7 @@ def histogram_plot(dataframe_df, x_label, y_label, title, bins=None):
     plt.savefig("data/histogram_binning_data.png")
 
 
-histogram_plot(df["horsepower"], "horsepower", "count", "horsepower bins")
+histogram_plot(df["horsepower"], "horsepower", "count", "horsepower bins 0")
 
 #MANEGE PLOTS GUIDE---------------------
 # plt.clf()
@@ -179,12 +179,6 @@ group_names = ['Low', 'Medium', 'High']
 
 
 
-#SEGMENTATION OF THE COLUMN "horse_power" INTO 3 COMPARTMENTS
-df['horsepower-binned'] = pd.cut(df['horsepower'], bins, labels=group_names, include_lowest=True)
-df[['horsepower','horsepower-binned']].head(20)
-#SEGMENTATION OF THE COLUMN "horse_power" INTO 3 COMPARTMENTS
-
-
 
 
 
@@ -204,7 +198,7 @@ def bar_plot(group_names, df, title, x_title, y_title):
 
 
 bar_plot(group_names, 
-         df["horsepower-binned"].value_counts(), 
+         df["horsepower-binned"], 
          "horsepower bins", 
          "horsepower", 
          "count")
